@@ -38,8 +38,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/admin', [\App\Http\Controllers\AdminController::class, 'store']);
     Route::delete('/admin/{item}', [\App\Http\Controllers\AdminController::class, 'delete']);
 
-    Route::get('/usuarios', 'UsuarioController@index');
-    Route::get('/usuarios/adicionar', 'UsuarioController@create');
-    Route::post('/usuarios', 'UsuarioController@store');
-    Route::delete('/usuarios/{user}', 'UsuarioController@delete');
+    Route::get('/usuarios', [UsuariosController::class, 'index']);
+    Route::get('/usuarios/adicionar', [UsuariosController::class, 'create']);
+    Route::post('/usuarios/salvar', [UsuariosController::class, 'store']);
+    Route::delete('/usuarios/{user}', [UsuariosController::class, 'delete']);
 });
+
