@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Iten extends Model
+class Item extends Model
 {
     use HasFactory;
+    protected $fillable = ['number' , 'disclosure', 'file', 'filetext', 'created_by', 'updated_by'];
 }
