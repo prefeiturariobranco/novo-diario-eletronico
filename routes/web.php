@@ -12,22 +12,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
 Route::get('/', function () {
     return view('home');
 });
 
-Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
-Route::get('/home', function () {
-    return redirect('/');
-});
-
 Route::get('/visualizar/{item}', [App\Http\Controllers\HomeController::class, 'show']);
-
 Route::post('/pesquisa', [\App\Http\Controllers\AdminController::class, 'search']);
 
 Route::group(['middleware' => ['auth']], function () {
@@ -38,9 +31,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/admin', [\App\Http\Controllers\AdminController::class, 'store']);
     Route::delete('/admin/{item}', [\App\Http\Controllers\AdminController::class, 'delete']);
 
-    Route::get('/usuarios', [UsuariosController::class, 'index']);
-    Route::get('/usuarios/adicionar', [UsuariosController::class, 'create']);
-    Route::post('/usuarios/salvar', [UsuariosController::class, 'store']);
-    Route::delete('/usuarios/{user}', [UsuariosController::class, 'delete']);
+    Route::get('/usuarios', [\App\Http\Controllers\UsuariosController::class, 'index']);
+    Route::get('/usuarios/adicionar', [\App\Http\Controllers\UsuariosController::class, 'create']);
+    Route::post('/usuarios/salvar', [\App\Http\Controllers\UsuariosController::class, 'store']);
+    Route::delete('/usuarios/{user}', [\App\Http\Controllers\UsuariosController::class, 'delete']);
 });
 
