@@ -44,5 +44,3 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/usuarios/{user}', [UsuariosController::class, 'delete']);
 });
 
-a
-
