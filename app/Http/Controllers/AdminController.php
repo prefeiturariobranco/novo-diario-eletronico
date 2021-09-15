@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AdminRequest;
 use App\Models\Item;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -47,14 +48,8 @@ class AdminController extends Controller
         return view('admin.create', compact('mes_atual'));
     }
 
-    public function store(Request $request)
+    public function store(AdminRequest $request)
     {
-        $this->validate($request, [
-            'number'     => 'required|unique:itens,numero,NULL,id,deleted_at,NULL',
-            'disclosure' => 'required|date_format:d/m/Y',
-            'anexo'      => 'required',
-        ]);
-
         $request->disclosure = date('Y-m-d', strtotime(str_replace('/', '-', $request->disclosure)));
 
         $filename = 'DEMPAC' . $request->number . str_replace('-', '', $request->disclosure);
@@ -79,13 +74,8 @@ class AdminController extends Controller
         return view('admin.edit', compact('item', 'mes_atual'));
     }
 
-    public function update(Request $request, Item $item)
+    public function update(AdminRequest $request, Item $item)
     {
-        $this->validate($request, [
-            'number'     => 'required',
-            'disclosure' => 'required',
-        ]);
-
         $request->disclosure = date('Y-m-d', strtotime(str_replace('/', '-', $request->disclosure)));
 
         if ($request->anexo) {
