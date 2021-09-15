@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Item;
+use App\Models\Item;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Spatie\PdfToText\Pdf;
 
 class AdminController extends Controller
 {
@@ -24,30 +25,94 @@ class AdminController extends Controller
         $termo = $request->pesquisa;
         $mes_atual = $this->mes_atual;
 
+        $itens = Item::search("*'\"$termo\"'*")->get();
+
+        $view = (auth()->id() ? 'admin.index' : 'home' );
+        return view($view, compact('itens', 'mes_atual', 'termo'));
+
     }
+
+    public function index()
+    {
+        $mes_atual = $this->mes_atual;
+        $itens = Item::orderBy('disclosure')->get();
+
+        return view('admin.index', compact('itens', 'mes_atual'));
+    }
+
+    public function create()
+    {
+        $mes_atual = $this->mes_atual;
+
+        return view('admin.create', compact('mes_atual'));
+    }
+
     public function store(Request $request)
     {
-        $item = new Item();
-        $validade=$request->validate([
-            'numero'     => 'required|unique:itens,numero,NULL,id,deleted_at,NULL',
-            'divulgacao' => 'required|date_format:d/m/Y',
+        $this->validate($request, [
+            'number'     => 'required|unique:itens,numero,NULL,id,deleted_at,NULL',
+            'disclosure' => 'required|date_format:d/m/Y',
             'anexo'      => 'required',
         ]);
 
-        $request->divulgacao = date('Y-m-d', strtotime(str_replace('/', '-', $request->divulgacao)));
+        $request->disclosure = date('Y-m-d', strtotime(str_replace('/', '-', $request->disclosure)));
 
-        $filename = 'DEMPAC' . $request->numero . str_replace('-', '', $request->divulgacao);
+        $filename = 'DEMPAC' . $request->number . str_replace('-', '', $request->disclosure);
         $filepath = $request->anexo->storeAs('public/anexos', $filename.'.pdf');
         $completepath = $this->storage_path . $filename . '.pdf';
 
         $item = new Item;
-        $item->numero     = $request->numero;
-        $item->divulgacao = $request->divulgacao;
-        $item->divulgacao = $item->divulgacao->addHours(8);
+        $item->number     = $request->number;
+        $item->disclosure = $request->disclosure;
+        $item->disclosure = $item->disclosure->addHours(8);
         $item->created_by = \Auth::id();
         $item->file       = $filepath;
         $item->save();
 
         return redirect('admin')->withSuccess('Registro inserido com sucesso');
+    }
+
+    public function edit(Item $item)
+    {
+        $mes_atual = $this->mes_atual;
+
+        return view('admin.edit', compact('item', 'mes_atual'));
+    }
+
+    public function update(Request $request, Item $item)
+    {
+        $this->validate($request, [
+            'number'     => 'required',
+            'disclosure' => 'required',
+        ]);
+
+        $request->disclosure = date('Y-m-d', strtotime(str_replace('/', '-', $request->disclosure)));
+
+        if ($request->anexo) {
+            $filename = 'DEMPAC' . $request->numero . str_replace('-', '', $request->divulgacao);
+            $filepath = $request->anexo->storeAs('public/anexos', $filename.'.pdf');
+            $completepath = $this->storage_path . $filename . '.pdf';
+            $item->file = $filepath;
+            $item->filetext = Pdf::getText($completepath, env('XPDF'), ['enc UTF-8']);
+        }
+
+        $item->number     = $request->number;
+        $item->disclosure = $request->disclosure;
+        $item->disclosure = $item->disclosure->addHours(8);
+
+        $item->updated_by = \Auth::id();
+
+        $item->update();
+
+        return redirect('admin')->withSuccess('Registro alterado com sucesso');
+    }
+
+    public function delete(Item $item)
+    {
+        if ($item->delete()) {
+            return response()->json();
+        } else {
+            return response()->json('', 500);
+        }
     }
 }
