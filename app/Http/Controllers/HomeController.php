@@ -44,8 +44,6 @@ class HomeController extends Controller
             ->orderBy('disclosure', 'desc')
             ->get();
 
-        $this->mes_atual = Carbon::now('America/Rio_Branco')->month;
-        $this->ano_atual = Carbon::now('America/Rio_Branco')->year;
 
         $anos = DB::table('items')
             ->selectRaw('YEAR(created_at) as year')
@@ -59,8 +57,6 @@ class HomeController extends Controller
             $anos[] = $this->ano_atual;
         }
 
-        $meses = [null, 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-
         $now = Carbon::now('America/Rio_Branco');
         $mes_atual = $this->mes_atual;
         $mes_filtro = $request->has('mes') ? $request->input('mes') : $this->mes_atual;
@@ -68,7 +64,6 @@ class HomeController extends Controller
 
         return view('home', compact('itens'))
             ->with('anos', $anos)
-            ->with('meses', $meses)
             ->with('now', $now)
             ->with('mes_atual', $mes_atual)
             ->with('mes_filtro', $mes_filtro)

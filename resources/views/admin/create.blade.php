@@ -5,18 +5,19 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form action="/admin" method="POST" class="form-horizontal" enctype="multipart/form-data">
+                    <form action="{{route('admin.create')}}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+                        @csrf
                         <div class="form-group">
                             <label for="numero" class="control-label col-md-2">Número</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" id="numero" name="numero" value="{{ old('numero') }}" required placeholder="Ex: 001, 002, 003...">
+                                <input type="text" class="form-control" id="numero" name="number" value="{{ old('numero') }}" required placeholder="Ex: 001, 002, 003...">
                                 <span class="help-block">
                                 <strong>Para edições extras, adicionar letra ao número, exemplo: 002-A</strong>
                             </span>
 
-                                @if ($errors->has('numero'))
+                                @if ($errors->has('number'))
                                     <span class="help-block">
-                                    <strong>{{ $errors->first('numero') }}</strong>
+                                    <strong>{{ $errors->first('number') }}</strong>
                                 </span>
                                 @endif
                             </div>

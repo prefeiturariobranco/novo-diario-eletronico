@@ -88,17 +88,16 @@
             </div>
             @if (Request::segment(1) !== 'login')
                 <div class="col-md-4 results-filter">
-                    <form action="/">
+                    <form action="/home">
                         <span>Filtrar por: </span>
                         <select name="mes">
-                            @foreach ($meses as $mes => $mes_nome)
-                                <option {{ $mes == $mes_filtro ? 'selected' : '' }} value="{{ $mes }}">{{ $mes_nome }}</option>
+                            @foreach (meses() as $mes => $mes_nome)
+                                <option {{ $mes == (isset($mes_filtro)? $mes_filtro:date('m')) ? 'selected' : '' }} value="{{ $mes }}">{{ $mes_nome }}</option>
                             @endforeach
-
                         </select>
                         <select name="ano">
-                            @foreach ($anos as $ano)
-                                <option {{ $ano == $ano_filtro ? 'selected' : '' }} value="{{ $ano }}">{{ $ano }}</option>
+                            @foreach (anos() as $ano)
+                                <option {{ $ano == (isset($ano_filtro)? $ano_filtro:date('Y')) ? 'selected' : '' }} value="{{ $ano }}">{{ $ano }}</option>
                             @endforeach
                         </select>
                         <button type="submit" class="btn btn-xs btn-primary">Filtrar</button>

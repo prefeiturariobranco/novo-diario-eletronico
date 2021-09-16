@@ -28,7 +28,7 @@
                             <tr>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->email }}</td>
-                                <td>{{ $item->created_at->format('d/m/Y à\s H:i') }}</td>
+                                <td>{{ $item->created_at }}</td>
                                 <td>
                                     <a href="{{ "/usuarios/$item->id" }}" class="confirm-delete" style="color: #903031;">
                                         <span class="fa fa-trash"></span>

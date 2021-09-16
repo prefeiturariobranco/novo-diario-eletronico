@@ -38,8 +38,8 @@
                         <tbody>
                         @forelse ($itens as $item)
                             <tr>
-                                <td>{{ $item->numero }}</td>
-                                <td>{{ $item->divulgacao->format('d/m/Y') }}</td>
+                                <td>{{ $item->number }}</td>
+                                <td>{{ $item->disclosure->format('d/m/Y') }}</td>
                                 <td>
                                     <a href="{{ "/visualizar/$item->id" }}" target="_blank" style="color: #903031;">
                                         <span class="fa fa-file-pdf-o"></span>

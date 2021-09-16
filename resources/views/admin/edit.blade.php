@@ -6,10 +6,11 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <form action="{{ "/admin/$item->id" }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+                        @csrf
                         <div class="form-group">
                             <label for="numero" class="control-label col-md-2">Número</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" id="numero" name="numero" value="{{ old('numero') ?: $item->numero }}" required placeholder="Para edições extras, usar -LETRA. Ex.: 1-A, 1-B etc">
+                                <input type="text" class="form-control" id="numero" name="number" value="{{ old('numero') ?: $item->number }}" required placeholder="Para edições extras, usar -LETRA. Ex.: 1-A, 1-B etc">
 
                                 @if ($errors->has('numero'))
                                     <span class="help-block">
@@ -22,7 +23,7 @@
                         <div class="form-group">
                             <label for="divulgacao" class="control-label col-md-2">Divulgação</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control datepicker" id="divulgacao" name="divulgacao" value="{{ old('divulgacao') ?: $item->divulgacao->format('d/m/Y') }}" required>
+                                <input type="text" class="form-control datepicker" id="divulgacao" name="divulgacao" value="{{ old('divulgacao') ?: $item->disclosure->format('d/m/Y') }}" required>
 
                                 @if ($errors->has('divulgacao'))
                                     <span class="help-block">

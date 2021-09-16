@@ -48,7 +48,7 @@ class AdminController extends Controller
         return view('admin.create', compact('mes_atual'));
     }
 
-    public function store(AdminRequest $request)
+    public function store(Request $request)
     {
         $request->disclosure = date('Y-m-d', strtotime(str_replace('/', '-', $request->disclosure)));
 
@@ -64,7 +64,8 @@ class AdminController extends Controller
         $item->file       = $filepath;
         $item->save();
 
-        return redirect('admin')->withSuccess('Registro inserido com sucesso');
+        return redirect('admin')->withSuccess('Registro alterado com sucesso');
+
     }
 
     public function edit(Item $item)
@@ -74,16 +75,15 @@ class AdminController extends Controller
         return view('admin.edit', compact('item', 'mes_atual'));
     }
 
-    public function update(AdminRequest $request, Item $item)
+    public function update(Request $request, Item $item)
     {
         $request->disclosure = date('Y-m-d', strtotime(str_replace('/', '-', $request->disclosure)));
 
         if ($request->anexo) {
             $filename = 'DEMPAC' . $request->numero . str_replace('-', '', $request->divulgacao);
-            $filepath = $request->anexo->storeAs('public/anexos', $filename.'.pdf');
+            $filepath = $request->anexo->storeAs('public/anexos', $filename . '.pdf');
             $completepath = $this->storage_path . $filename . '.pdf';
             $item->file = $filepath;
-            $item->filetext = Pdf::getText($completepath, env('XPDF'), ['enc UTF-8']);
         }
 
         $item->number     = $request->number;
