@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -15,6 +16,8 @@ class HomeController extends Controller
      */
 
     private $mes_atual;
+    private $ano_atual;
+
 
     public function __construct()
     {
@@ -41,7 +44,36 @@ class HomeController extends Controller
             ->orderBy('disclosure', 'desc')
             ->get();
 
-        return view('home', compact('itens'));
+        $this->mes_atual = Carbon::now('America/Rio_Branco')->month;
+        $this->ano_atual = Carbon::now('America/Rio_Branco')->year;
+
+        $anos = DB::table('items')
+            ->selectRaw('YEAR(created_at) as year')
+            ->groupBy('year')
+            ->get()
+            ->map(function ($item) {
+                return $item->year;
+            });
+
+        if (!$anos->contains($this->ano_atual)) {
+            $anos[] = $this->ano_atual;
+        }
+
+        $meses = [null, 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+
+        $now = Carbon::now('America/Rio_Branco');
+        $mes_atual = $this->mes_atual;
+        $mes_filtro = $request->has('mes') ? $request->input('mes') : $this->mes_atual;
+        $ano_filtro = $request->has('ano') ? $request->input('ano') : $this->ano_atual;
+
+        return view('home', compact('itens'))
+            ->with('anos', $anos)
+            ->with('meses', $meses)
+            ->with('now', $now)
+            ->with('mes_atual', $mes_atual)
+            ->with('mes_filtro', $mes_filtro)
+            ->with('ano_filtro', $ano_filtro);
+
     }
 
     public function show(Item $item)
