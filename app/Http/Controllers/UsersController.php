@@ -36,9 +36,7 @@ class UsersController extends Controller
     public function delete(User $user)
     {
         if ($user->delete()) {
-            return response()->json();
-        } else {
-            return response()->json(null, 500);
+            return redirect('usuarios');
         }
     }
 }

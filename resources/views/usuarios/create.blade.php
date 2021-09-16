@@ -5,7 +5,8 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form action="/usuarios" method="POST" class="form-horizontal">
+                    <form action="{{route('usuarios.salvar')}}" method="POST" class="form-horizontal">
+                        @csrf
                         <div class="form-group">
                             <label for="name" class="control-label col-md-2">Nome</label>
                             <div class="col-md-10">

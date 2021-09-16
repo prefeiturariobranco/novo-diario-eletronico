@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/usuarios', [\App\Http\Controllers\UsersController::class, 'index']);
     Route::get('/usuarios/adicionar', [\App\Http\Controllers\UsersController::class, 'create']);
-    Route::post('/usuarios/salvar', [\App\Http\Controllers\UsersController::class, 'store']);
-    Route::delete('/usuarios/{user}', [\App\Http\Controllers\UsersController::class, 'delete']);
+    Route::post('/usuarios/salvar', [\App\Http\Controllers\UsersController::class, 'store'])->name('usuarios.salvar');
+    Route::delete('/usuarios/{user}', [\App\Http\Controllers\UsersController::class, 'delete'])->name('usuarios.delete');
 });
 

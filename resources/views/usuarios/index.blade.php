@@ -30,9 +30,13 @@
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->created_at }}</td>
                                 <td>
-                                    <a href="{{ "/usuarios/$item->id" }}" class="confirm-delete" style="color: #903031;">
-                                        <span class="fa fa-trash"></span>
-                                    </a>
+                                    <form action="{{route('usuarios.delete', ['user'=>$item->id])}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-danger">
+                                            <span class="fa fa-trash"></span>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @empty

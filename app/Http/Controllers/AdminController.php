@@ -64,7 +64,7 @@ class AdminController extends Controller
         $item->file       = $filepath;
         $item->save();
 
-        return redirect('admin')->withSuccess('Registro alterado com sucesso');
+        return redirect('admin')->withSuccess('Registro cadatrado com sucesso');
 
     }
 

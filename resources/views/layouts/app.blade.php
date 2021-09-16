@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{asset('css/all.css')}}">
 
     <!-- Scripts -->
+    <script src="https://use.fontawesome.com/5340275f25.js"></script>
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
