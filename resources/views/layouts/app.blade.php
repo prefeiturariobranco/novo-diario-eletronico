@@ -11,7 +11,7 @@
     <title>Diário Oficial Eletrônico do Ministério Público do Estado do Acre</title>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="/css/all.css">
+    <link rel="stylesheet" href="{{asset('css/all.css')}}">
 
     <!-- Scripts -->
     <script>

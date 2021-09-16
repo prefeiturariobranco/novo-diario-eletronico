@@ -15,7 +15,7 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        View::composer('layouts.a   pp', GlobalComposer::class);
+        View::composer('layouts.app', GlobalComposer::class);
     }
 
     /**
