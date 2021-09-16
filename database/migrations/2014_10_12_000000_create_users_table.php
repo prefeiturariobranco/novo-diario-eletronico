@@ -34,7 +34,7 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
-        Schema::table('itens', function (Blueprint $table) {
+        Schema::table('items', function (Blueprint $table) {
         });
     }
 }
