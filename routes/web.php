@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/visualizar/{item}', [App\Http\Controllers\HomeController::class, 'show']);
 Route::post('/pesquisa', [\App\Http\Controllers\AdminController::class, 'search']);

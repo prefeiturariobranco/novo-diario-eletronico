@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Item;
+use App\Models\Item;;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -73,7 +73,9 @@ class HomeController extends Controller
 
     public function show(Item $item)
     {
+
         $file = substr($item->file, strrpos($item->file, '/') + 1);
+        dd($item);
 
         return view('view', compact('file'));
     }
