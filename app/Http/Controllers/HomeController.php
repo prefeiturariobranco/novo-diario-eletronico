@@ -74,8 +74,7 @@ class HomeController extends Controller
     public function show(Item $item)
     {
 
-        $file = substr($item->file, strrpos($item->file, '/') + 1);
-        dd($item);
+       $file = $item->file;
 
         return view('view', compact('file'));
     }
