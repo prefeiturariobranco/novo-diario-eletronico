@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;;
 use Carbon\Carbon;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -73,9 +75,9 @@ class HomeController extends Controller
 
     public function show(Item $item)
     {
-
        $file = $item->file;
 
         return view('view', compact('file'));
     }
+
 }
