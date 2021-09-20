@@ -99,10 +99,11 @@ class AdminController extends Controller
 
     public function delete(Item $item)
     {
+        $item = Item::find($item->id);
+        $item->delete();
+
         if ($item->delete()) {
-            return response()->json();
-        } else {
-            return response()->json('', 500);
+            return redirect('admin')->withSuccess('Registro deletado com sucesso');
         }
     }
 }

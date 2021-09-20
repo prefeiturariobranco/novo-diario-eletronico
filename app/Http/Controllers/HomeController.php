@@ -80,4 +80,5 @@ class HomeController extends Controller
         return view('view', compact('file'));
     }
 
+
 }

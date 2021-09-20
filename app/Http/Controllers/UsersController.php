@@ -36,7 +36,7 @@ class UsersController extends Controller
     public function delete(User $user)
     {
         if ($user->delete()) {
-            return redirect('usuarios');
+            return redirect('usuarios')->withSuccess('Usuário deletado com sucesso');
         }
     }
 }

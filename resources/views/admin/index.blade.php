@@ -51,9 +51,14 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{ "/admin/$item->id" }}" class="confirm-delete" style="color: #903031;">
-                                        <span class="fa fa-trash"></span>
-                                    </a>
+                                    <form action="{{route('registro.delete', ['item'=>$item->id])}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-danger">
+                                            <span class="fa fa-trash"></span>
+                                        </button>
+                                    </form>
+
                                 </td>
                             </tr>
                         @empty
