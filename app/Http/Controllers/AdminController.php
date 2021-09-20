@@ -53,7 +53,7 @@ class AdminController extends Controller
         $request->disclosure = date('Y-m-d', strtotime(str_replace('/', '-', $request->disclosure)));
 
         $filename = 'DEMPAC' . $request->number . str_replace('-', '', $request->disclosure);
-        $filepath = $request->anexo->storeAs('public/anexos', $filename.'.pdf');
+        $filepath = $request->anexo->store('anexos');
         $completepath = $this->storage_path . $filename . '.pdf';
 
         $item = new Item;
