@@ -23,7 +23,7 @@
                         <div class="form-group">
                             <label for="divulgacao" class="control-label col-md-2">Divulgação</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control datepicker" id="divulgacao" name="divulgacao" value="{{ old('divulgacao') ?: $item->disclosure->format('d/m/Y') }}" required>
+                                <input type="date" class="form-control datepicker" id="divulgacao" name="divulgacao" value="{{ old('divulgacao') ?: $item->disclosure->format('d/m/Y') }}" required>
 
                                 @if ($errors->has('divulgacao'))
                                     <span class="help-block">

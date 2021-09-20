@@ -50,7 +50,10 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
-        $request->disclosure = date('Y-m-d', strtotime(str_replace('/', '-', $request->disclosure)));
+//        $request->disclosure = date('Y-m-d', strtotime(str_replace('/', '-', $request->disclosure)));
+
+        $date =  $_POST['divulgacao'];
+        $request->disclosure  = date("m/d/Y", strtotime($date));
 
         $filename = 'DEMPAC' . $request->number . str_replace('-', '', $request->disclosure);
         $filepath = $request->anexo->store('anexos');
@@ -58,11 +61,11 @@ class AdminController extends Controller
 
         $item = new Item;
         $item->number     = $request->number;
-        $item->disclosure = $request->disclosure;
-        $item->disclosure = $item->disclosure->addHours(8);
+        $item->disclosure = $request->disclosure ;
         $item->created_by = \Auth::id();
         $item->file       = $filepath;
         $item->save();
+
 
         return redirect('admin')->withSuccess('Registro cadatrado com sucesso');
 
@@ -77,7 +80,8 @@ class AdminController extends Controller
 
     public function update(Request $request, Item $item)
     {
-        $request->disclosure = date('Y-m-d', strtotime(str_replace('/', '-', $request->disclosure)));
+        $date =  $_POST['divulgacao'];
+        $request->disclosure  = date("m/d/Y", strtotime($date));
 
         if ($request->anexo) {
             $filename = 'DEMPAC' . $request->numero . str_replace('-', '', $request->divulgacao);
@@ -88,7 +92,7 @@ class AdminController extends Controller
 
         $item->number     = $request->number;
         $item->disclosure = $request->disclosure;
-        $item->disclosure = $item->disclosure->addHours(8);
+
 
         $item->updated_by = \Auth::id();
 

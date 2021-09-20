@@ -26,7 +26,7 @@
                         <div class="form-group">
                             <label for="divulgacao" class="control-label col-md-2">Divulgação</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control datepicker" id="divulgacao" name="divulgacao" value="{{ old('divulgacao') }}" placeholder="dia/mês/ano" data-provide="datepicker" required>
+                                <input type="date" class="form-control datepicker" id="divulgacao" name="divulgacao" value="{{ old('divulgacao') }}" placeholder="dia/mês/ano" data-provide="datepicker" required>
 
                                 @if ($errors->has('divulgacao'))
                                     <span class="help-block">
