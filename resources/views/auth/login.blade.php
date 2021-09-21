@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="{{asset('/css/login.css')}}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <title>Diário Oficial Eletrônic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Diário Oficial Eletrônico</title>
 </head>
 <body>
 <div class="container" id="login">
@@ -18,21 +19,22 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
-                    <h4>Login</h4>
+                    <h4 style="font-weight: bold">Login</h4>
                 </div>
 
                 <div class="card-body col-md-12 mt-5">
                     <div>
                         <img class="img" src="{{asset('/img/logo.png')}}" alt="">
                     </div>
-                    <form class="mt-5" method="POST" action="{{ route('login') }}" >
+                    <form class="mt-5" method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="form-group row">
 
                             <div class="col-md-12">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                       name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Usuário">
+                                       name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
+                                       placeholder="Usuário">
 
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -57,32 +59,19 @@
                             </div>
                         </div>
 
-                            <div class="form-group row">
-                                <div class="col-md-6 mt-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="remember"
-                                               id="remember" {{ old('remember') ? 'checked' : '' }}>
+                        <div class="form-group row mb-0 mt-5">
+                            <div class="col-md-12 ">
+                                <button type="submit" class="btn btn-primary col-md-12">
+                                    {{ __('Entrar') }}
+                                </button>
 
-                                        <label class="form-check-label" for="remember">
-                                            {{ __('Lembre de mim') }}
-                                        </label>
-                                    </div>
-                                </div>
+                                @if (Route::has('password.request'))
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        {{ __('Esqueceu sua senha ?') }}
+                                    </a>
+                                @endif
                             </div>
-
-                            <div class="form-group row mb-0">
-                                <div class="col-md-12 ">
-                                    <button type="submit" class="btn btn-primary col-md-12">
-                                        {{ __('Entrar') }}
-                                    </button>
-
-                                    @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                                            {{ __('Esqueceu sua senha ?') }}
-                                        </a>
-                                    @endif
-                                </div>
-                            </div>
+                        </div>
 
 
                     </form>
@@ -93,10 +82,15 @@
 </div>
 
 
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 </body>
 </html>
 
