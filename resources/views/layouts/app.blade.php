@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Diário Oficial Eletrônico do Ministério Público do Estado do Acre</title>
+    <title>Diário Oficial Eletrônic</title>
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{asset('css/all.css')}}">
@@ -29,6 +29,7 @@
         ]); ?>
     </script>
 </head>
+
 <body>
 <div id="app">
     <nav class="navbar navbar-default navbar-static-top">
