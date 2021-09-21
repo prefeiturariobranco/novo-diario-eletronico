@@ -12,9 +12,17 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{asset('css/all.css')}}">
-
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css">
     <!-- Scripts -->
     <script src="https://use.fontawesome.com/5340275f25.js"></script>
+    <script src="//cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+    <script src='http://code.jquery.com/jquery-2.1.3.min.js'></script>
+    <script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+    <script>
+        $(function () {
+            $('.dropdown-toggle').dropdown();
+        });
+    </script>
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
@@ -112,6 +120,12 @@
 
 <!-- Scripts -->
 <script src="/js/all.js"></script>
+<script>
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
+</script>
+
 </body>
 </html>
 

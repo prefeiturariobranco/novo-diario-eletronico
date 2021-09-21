@@ -26,7 +26,7 @@ class AdminController extends Controller
         $termo = $request->pesquisa;
         $mes_atual = $this->mes_atual;
 
-        $itens = Item::search("*'\"$termo\"'*")->get();
+        $itens = Item::search($termo)->get();
 
         $view = (auth()->id() ? 'admin.index' : 'home' );
         return view($view, compact('itens', 'mes_atual', 'termo'));

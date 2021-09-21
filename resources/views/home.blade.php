@@ -13,7 +13,7 @@
                         <h3 style="margin-top:11px;margin-bottom:22px"><small>Resultados da pesquisa para: </small><em>{{ $termo }}</em></h3>
                     @endif
 
-                    <table class="table">
+                    <table class="table" id="myTable">
                         <thead>
                         <tr>
                             <th>Número</th>
@@ -24,8 +24,8 @@
                         <tbody>
                         @forelse ($itens as $item)
                             <tr>
-                                <td>{{ $item->numero }}</td>
-                                <td>{{ $item->divulgacao->format('d/m/Y') }}</td>
+                                <td>{{ $item->number }}</td>
+                                <td>{{ $item->disclosure->format('d/m/Y') }}</td>
                                 <td>
                                     <a href="{{ "/visualizar/$item->id" }}" target="_blank" style="color: #903031;">
                                         <span class="fa fa-file-pdf-o"></span>
@@ -44,3 +44,5 @@
         </div>
     </div>
 @endsection
+
+
