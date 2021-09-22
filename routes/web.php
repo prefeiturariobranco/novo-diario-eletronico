@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
+Route::view('/teste', 'send_email');
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/visualizar/{item}', [App\Http\Controllers\HomeController::class, 'show']);
