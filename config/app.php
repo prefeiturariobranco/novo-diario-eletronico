@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Diario Eletronico'),
+    'name' => env('APP_NAME', 'Diário Eletrônico'),
 
     /*
     |--------------------------------------------------------------------------
