@@ -98,7 +98,7 @@
             </div>
             @if (Request::segment(1) !== 'login')
                 <div class="col-md-4 results-filter">
-                    <form action="/home">
+                    <form action="/">
                         <span>Filtrar por: </span>
                         <select name="mes">
                             @foreach (meses() as $mes => $mes_nome)
