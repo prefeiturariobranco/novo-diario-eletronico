@@ -17,7 +17,7 @@ if (!function_exists('anos')){
         $ano_atual = Carbon::now('America/Rio_Branco')->year;
 
         $anos = DB::table('items')
-            ->selectRaw('YEAR(created_at) as year')
+            ->selectRaw('YEAR(disclosure) as year')
             ->groupBy('year')
             ->get()
             ->map(function ($item) {

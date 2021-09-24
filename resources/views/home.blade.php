@@ -4,7 +4,6 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
 
-            @include('searchbar')
 
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -13,7 +12,7 @@
                         <h3 style="margin-top:11px;margin-bottom:22px"><small>Resultados da pesquisa para: </small><em>{{ $termo }}</em></h3>
                     @endif
 
-                    <table class="table" id="myTable">
+                    <table class="table table-striped" id="table_id">
                         <thead>
                         <tr>
                             <th>Número</th>
@@ -43,6 +42,13 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready( function () {
+            $('#table_id').DataTable();
+        } );
+    </script>
+
 @endsection
 
 
