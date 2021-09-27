@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
+Route::view('/teste', 'send_email');
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/visualizar/{item}', [App\Http\Controllers\HomeController::class, 'show']);
@@ -31,5 +33,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/usuarios/adicionar', [\App\Http\Controllers\UsersController::class, 'create']);
     Route::post('/usuarios/salvar', [\App\Http\Controllers\UsersController::class, 'store'])->name('usuarios.salvar');
     Route::delete('/usuarios/{user}', [\App\Http\Controllers\UsersController::class, 'delete'])->name('usuarios.delete');
+    Route::get('/usuarios/editar/{user}', [\App\Http\Controllers\UsersController::class, 'edit'])->name('usuarios.editar');
+    Route::post('/usuarios/alterar/{user}', [\App\Http\Controllers\UsersController::class, 'update'])->name('usuarios.alterar');
 });
+
+
 
