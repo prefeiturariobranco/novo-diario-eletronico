@@ -16,7 +16,7 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        @if (Auth::check())
+                        @if (Auth::user()->admin==1)
                             <li><a href="/admin">Painel administrativo</a></li>
                             <li><a href="/usuarios">Usuários</a></li>
                         @endif

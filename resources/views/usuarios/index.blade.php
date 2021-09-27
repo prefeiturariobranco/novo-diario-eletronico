@@ -19,7 +19,7 @@
                         <tr>
                             <th>Nome</th>
                             <th>Email</th>
-                            <th>Criado em</th>
+                            <th>Editar</th>
                             <th>Apagar</th>
                         </tr>
                         </thead>
@@ -28,7 +28,9 @@
                             <tr>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->email }}</td>
-                                <td>{{ $item->created_at }}</td>
+                                <td>
+                                    <a href="{{route('usuarios.editar', ['user'=>$item->id])}}" class="button btn-danger">Editar</a>
+                                </td>
                                 <td>
                                     <form action="{{route('usuarios.delete', ['user'=>$item->id])}}" method="post">
                                         @csrf
