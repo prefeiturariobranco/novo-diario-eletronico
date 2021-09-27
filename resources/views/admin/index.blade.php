@@ -13,8 +13,6 @@
                 </div>
             @endif
 
-            @component('searchbar')@endcomponent
-
             <div class="panel panel-default">
                 <div class="panel-body">
 
@@ -25,7 +23,7 @@
                         </h3>
                     @endif
 
-                    <table class="table">
+                    <table class="table" id="table_id">
                         <thead>
                             <tr>
                                 <th>Número</th>
@@ -75,4 +73,11 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready( function () {
+            $('#table_id').DataTable();
+        } );
+    </script>
+
 @endsection
