@@ -2,12 +2,19 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-body">
+        <div class="col-md-12 col-md-offset-2">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active">Criar Edital</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body col-md-10 align-self-center">
                     <form action="{{route('admin.create')}}" method="POST" class="form-horizontal" enctype="multipart/form-data">
                         @csrf
-                        <div class="form-group">
+                        <div class="form-group row">
                             <label for="numero" class="control-label col-md-2">Número</label>
                             <div class="col-md-10">
                                 <input type="text" class="form-control" id="numero" name="number" value="{{ old('numero') }}" required placeholder="Ex: 001, 002, 003...">
@@ -23,7 +30,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group row">
                             <label for="divulgacao" class="control-label col-md-2">Divulgação</label>
                             <div class="col-md-10">
                                 <input type="date" class="form-control datepicker" id="divulgacao" name="divulgacao" value="{{ old('divulgacao') }}" placeholder="dia/mês/ano" data-provide="datepicker" required>
@@ -36,7 +43,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group row">
                             <label for="anexo" class="control-label col-md-2">Anexo</label>
                             <div class="col-md-10">
                                 <input type="file" id="anexo" name="anexo" value="{{ old('anexo') }}" required>

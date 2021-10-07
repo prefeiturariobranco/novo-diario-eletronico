@@ -67,7 +67,7 @@ class AdminController extends Controller
         $item->save();
 
 
-        return redirect('admin')->withSuccess('Registro cadatrado com sucesso');
+        return redirect('admin')->withSuccess('Registro cadastrado com sucesso');
 
     }
 

@@ -22,7 +22,7 @@
                     <h4 style="font-weight: bold">Login</h4>
                 </div>
 
-                <div class="card-body col-md-12 mt-5">
+                <div class="card-body col-md-12 mt-3">
                     <div>
                         <img class="img" src="{{asset('/img/logo.png')}}" alt="">
                     </div>

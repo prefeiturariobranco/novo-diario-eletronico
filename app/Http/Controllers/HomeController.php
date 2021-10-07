@@ -23,8 +23,6 @@ class HomeController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
-
         $this->mes_atual = Carbon::now('America/Rio_Branco')->month;
         $this->ano_atual = Carbon::now('America/Rio_Branco')->year;
     }
