@@ -23,7 +23,7 @@
 
 @section('content')
     <div class="row">
-        <div class="mt-3 mb-5 col-md-12 ">
+        <div class="col-md-12 col-md-offset-2 " style="margin-bottom: 100px">
             <div class="card">
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
