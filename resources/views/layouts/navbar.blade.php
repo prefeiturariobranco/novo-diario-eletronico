@@ -8,10 +8,10 @@
         <div class="collapse navbar-collapse justify-content-between" id="navbarsExample07">
             <ul class="navbar-nav mr-auto">
                 @if(Auth::check())
-                    @if (Auth::user()->admin==1)
                         <li class="nav-item active">
                             <a class="nav-link" href="/admin">Painel administrativo</a>
                         </li>
+                    @if (Auth::user()->admin==1)
                         <li class="nav-item active ">
                             <a class="nav-link" href="/usuarios">Usuários</a>
                         </li>
