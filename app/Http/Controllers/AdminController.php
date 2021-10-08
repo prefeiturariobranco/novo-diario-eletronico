@@ -23,10 +23,11 @@ class AdminController extends Controller
 
     public function search(Request $request)
     {
+//        dd($request);
         $termo = $request->pesquisa;
         $mes_atual = $this->mes_atual;
 
-        $itens = Item::search($termo)->get();
+        $itens = Item::where('',$termo)->get();
 
         $view = (auth()->id() ? 'admin.index' : 'home' );
         return view($view, compact('itens', 'mes_atual', 'termo'));

@@ -22,6 +22,8 @@
 @endpush
 
 @section('content')
+
+    @include('searchbar')
     <div class="row">
         <div class="col-md-12 col-md-offset-2 " style="margin-bottom: 100px">
             <div class="card">
