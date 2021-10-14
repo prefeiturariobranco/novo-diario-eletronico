@@ -16,7 +16,7 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('number')->unique();
-            $table->datetime('disclosure');
+            $table->string('disclosure');
             $table->string('file');
             $table->timestamps();
             $table->softDeletes();

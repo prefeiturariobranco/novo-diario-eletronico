@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminRequest;
+use App\Http\Requests\ItemEdit;
 use App\Models\Item;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Spatie\PdfToText\Pdf;
+use Illuminate\Support\Facades\DB;
+use Smalot\PdfParser\Parser;
+use Exception;
 
 class AdminController extends Controller
 {
@@ -16,20 +19,36 @@ class AdminController extends Controller
 
     public function construct()
     {
-        $this->storage_path = $this->storage_path ('app/public/anexos/');
+        $this->storage_path = $this->storage_path('app/public/anexos/');
         $this->mes_atual = Carbon::now('America/Rio_Branco')->month;
         $this->ano_atual = Carbon::now('America/Rio_Branco')->year;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function search(Request $request)
     {
-//        dd($request);
         $termo = $request->pesquisa;
         $mes_atual = $this->mes_atual;
+        $itens = Item::where('', $termo)->get();
 
-        $itens = Item::where('',$termo)->get();
+        // Parse pdf file and build necessary objects.
+        $parser = new Parser();
+        $pdf = $parser->parseFile($itens);
 
-        $view = (auth()->id() ? 'admin.index' : 'home' );
+        // Retrieve all details from the pdf file.
+        $details = $pdf->getDetails();
+
+        // Loop over each property to extract values (string or array).
+        foreach ($details as $property => $value) {
+            if (is_array($value)) {
+                $value = implode(', ', $value);
+            }
+            echo $property . ' => ' . $value . "\n";
+        }
+
+        $view = (auth()->id() ? 'admin.index' : 'home');
         return view($view, compact('itens', 'mes_atual', 'termo'));
 
     }
@@ -44,71 +63,77 @@ class AdminController extends Controller
 
     public function create()
     {
+
         $mes_atual = $this->mes_atual;
 
         return view('admin.create', compact('mes_atual'));
     }
 
-    public function store(Request $request)
+    public function store(AdminRequest $request)
     {
-//        $request->disclosure = date('Y-m-d', strtotime(str_replace('/', '-', $request->disclosure)));
+        try {
+            DB::beginTransaction();
 
-        $date =  $_POST['divulgacao'];
-        $request->disclosure  = date("m/d/Y", strtotime($date));
+            $filepath = $request->file->store('anexos');
+            $item = new Item;
+            $item->number = $request->number;
+            $item->disclosure = date_format(date_create($request->disclosure), 'd/m/Y H:m:s');
+            $item->created_by = \Auth::id();
+            $item->file = $filepath;
+            $item->save();
 
-        $filename = 'DEMPAC' . $request->number . str_replace('-', '', $request->disclosure);
-        $filepath = $request->anexo->store('anexos');
-        $completepath = $this->storage_path . $filename . '.pdf';
+            DB::commit();
+            return redirect('admin')->withSuccess('Registro cadastrado com sucesso');
 
-        $item = new Item;
-        $item->number     = $request->number;
-        $item->disclosure = $request->disclosure ;
-        $item->created_by = \Auth::id();
-        $item->file       = $filepath;
-        $item->save();
-
-
-        return redirect('admin')->withSuccess('Registro cadastrado com sucesso');
+        } catch (Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->withInput()->withErrors([
+                'message' => $ex->getMessage()
+            ]);
+        }
 
     }
 
-    public function edit(Item $item)
+    public function edit($id)
     {
         $mes_atual = $this->mes_atual;
+        $item = Item::findOrfail($id);
 
         return view('admin.edit', compact('item', 'mes_atual'));
     }
 
-    public function update(Request $request, Item $item)
+    public function update(ItemEdit $request, $id)
     {
-        $date =  $_POST['divulgacao'];
-        $request->disclosure  = date("m/d/Y", strtotime($date));
+        try {
+            DB::beginTransaction();
+            $item = Item::findOrfail($id);
+            $item->file = $request->file->store('anexos');
+            $item->disclosure = $request->disclosure;
+            $item->updated_by = \Auth::id();
+            $item->update();
+            DB::commit();
+            return redirect('admin.index')->withSuccess('Registro alterado com sucesso');
 
-        if ($request->anexo) {
-            $filename = 'DEMPAC' . $request->numero . str_replace('-', '', $request->divulgacao);
-            $filepath = $request->anexo->storeAs('public/anexos', $filename . '.pdf');
-            $completepath = $this->storage_path . $filename . '.pdf';
-            $item->file = $filepath;
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect()->back()->withInput()->withErrors([
+                'message' => $e->getMessage()
+            ]);
         }
 
-        $item->number     = $request->number;
-        $item->disclosure = $request->disclosure;
-
-
-        $item->updated_by = \Auth::id();
-
-        $item->update();
-
-        return redirect('admin')->withSuccess('Registro alterado com sucesso');
     }
 
-    public function delete(Item $item)
+    public function destroy($id)
     {
-        $item = Item::find($item->id);
-        $item->delete();
-
-        if ($item->delete()) {
-            return redirect('admin')->withSuccess('Registro deletado com sucesso');
+        if (Item::where('id', $id)->delete()) {
+            $json['delete'] = true;
+            $json['redirect'] = route('admin.index');
+            $json['message'] = 'Edital removido com sucesso!';
+            return response()->json($json);
         }
+
+        $json['error'] = true;
+        $json['message'] = 'Não foi possível excluir o edital. Favor, tente novamente!';
+        return response()->json($json);
     }
 }

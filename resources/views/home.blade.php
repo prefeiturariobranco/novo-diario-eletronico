@@ -52,7 +52,7 @@
                         @forelse ($itens as $item)
                             <tr>
                                 <td>{{ $item->number }}</td>
-                                <td>{{ $item->disclosure->format('d/m/Y') }}</td>
+                                <td>{{ $item->disclosure->format('d/m/Y h:m:s') }}</td>
                                 <td>
                                     <a href="{{ "/visualizar/$item->id" }}" target="_blank" style="color: #903031;">
                                         <button class="btn btn-outline-dark">
