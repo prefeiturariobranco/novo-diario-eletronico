@@ -12,6 +12,7 @@ class Item extends Model
     protected $fillable = [
         'file',
         'disclosure',
+        'parse_pdf',
         'deleted_at',
         'created_at',
         'update_at',

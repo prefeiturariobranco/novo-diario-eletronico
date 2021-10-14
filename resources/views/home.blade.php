@@ -22,8 +22,6 @@
 @endpush
 
 @section('content')
-
-    @include('searchbar')
     <div class="row">
         <div class="col-md-12 col-md-offset-2 " style="margin-bottom: 100px">
             <div class="card">
@@ -44,6 +42,7 @@
                         <thead style="text-align-last: center">
                         <tr>
                             <th>Número</th>
+                            <th class="d-none">INFO PDF</th>
                             <th>Divulgação</th>
                             <th>Visualizar</th>
                         </tr>
@@ -52,7 +51,8 @@
                         @forelse ($itens as $item)
                             <tr>
                                 <td>{{ $item->number }}</td>
-                                <td>{{ $item->disclosure->format('d/m/Y h:m:s') }}</td>
+                                <td class="d-none">{{$item->parse_pdf}}</td>
+                                <td>{{ date_format(date_create($item->disclosure), 'd/m/Y H:i') }}</td>
                                 <td>
                                     <a href="{{ "/visualizar/$item->id" }}" target="_blank" style="color: #903031;">
                                         <button class="btn btn-outline-dark">

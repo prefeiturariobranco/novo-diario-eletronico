@@ -61,6 +61,7 @@
                                     <th>Número</th>
                                     <th>Divulgação</th>
                                     <th>Visualizar</th>
+                                    <th class="d-none">INFO PDF</th>
                                     <th>Editar</th>
                                     <th>Apagar</th>
                                 </tr>
@@ -79,6 +80,7 @@
 
                                             </a>
                                         </td>
+                                        <td class="d-none">{{$item->parse_pdf}}</td>
                                         <td>
                                             <a href="{{ "/admin/$item->id/edit/" }}" style="color: #903031;">
                                                 <button class="btn btn-outline-info">

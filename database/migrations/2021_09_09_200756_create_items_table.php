@@ -18,6 +18,7 @@ class CreateItemsTable extends Migration
             $table->string('number')->unique();
             $table->string('disclosure');
             $table->string('file');
+            $table->mediumText('parse_pdf')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->unsignedBigInteger('created_by')->nullable();

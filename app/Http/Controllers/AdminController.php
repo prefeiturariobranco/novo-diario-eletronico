@@ -8,8 +8,8 @@ use App\Models\Item;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Smalot\PdfParser\Parser;
 use Exception;
+use Smalot\PdfParser\Parser;
 
 class AdminController extends Controller
 {
@@ -72,16 +72,21 @@ class AdminController extends Controller
     public function store(AdminRequest $request)
     {
         try {
-            DB::beginTransaction();
 
+            DB::beginTransaction();
+            $parser = new Parser();
             $filepath = $request->file->store('anexos');
+            //REALIZAR A LEITURA DO PDF
+            $pdf = $parser->parseFile(public_path().'/storage/'.$filepath);
+            $text = $pdf->getText();//PEGAR O TEXTO DO PDF
+
             $item = new Item;
+            $item->parse_pdf = $text;
             $item->number = $request->number;
-            $item->disclosure = date_format(date_create($request->disclosure), 'd/m/Y H:m:s');
+            $item->disclosure = date_format(date_create($request->disclosure), 'd/m/Y H:m');
             $item->created_by = \Auth::id();
             $item->file = $filepath;
             $item->save();
-
             DB::commit();
             return redirect('admin')->withSuccess('Registro cadastrado com sucesso');
 
@@ -107,8 +112,16 @@ class AdminController extends Controller
         try {
             DB::beginTransaction();
             $item = Item::findOrfail($id);
-            if (isset($request->anexo)) $item->file = $request->anexo->store('anexos');
-            if (!is_null($request->disclosure)) $item->disclosure = $request->disclosure;
+            if (isset($request->anexo)) {
+                $filepath = $request->anexo->store('anexos');
+                $item->file = $filepath;
+                //REALIZAR A LEITURA DO PDF
+                $parser = new Parser();
+                $pdf = $parser->parseFile(public_path().'/storage/'.$filepath);
+                $text = $pdf->getText();//PEGAR O TEXTO DO PDF
+                $item->parse_pdf = $text;
+            }
+            if (!is_null($request->disclosure)) $item->disclosure = str_replace( 'T', '', $request->disclosure);
             $item->updated_by = \Auth::id();
             $item->update();
             DB::commit();
