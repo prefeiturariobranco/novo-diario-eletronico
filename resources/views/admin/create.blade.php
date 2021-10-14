@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="content">
+        <div class="container-fluid">
+            <x-alert/>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12 col-md-offset-2">
             <div class="card">
@@ -12,47 +17,29 @@
                     </ul>
                 </div>
                 <div class="card-body col-md-10 align-self-center">
-                    <form action="{{route('admin.create')}}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+                    <form action="{{route('admin.store')}}" method="POST" class="form-horizontal" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
                             <label for="numero" class="control-label col-md-2">Número</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" id="numero" name="number" value="{{ old('numero') }}" required placeholder="Ex: 001, 002, 003...">
+                                <input type="text" class="form-control" id="number" name="number" value="{{ old('number') }}"  placeholder="Ex: 001, 002, 003...">
                                 <span class="help-block">
                                 <strong>Para edições extras, adicionar letra ao número, exemplo: 002-A</strong>
                             </span>
-
-                                @if ($errors->has('number'))
-                                    <span class="help-block">
-                                    <strong>{{ $errors->first('number') }}</strong>
-                                </span>
-                                @endif
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="divulgacao" class="control-label col-md-2">Divulgação</label>
+                            <label for="disclosure" class="control-label col-md-2">Divulgação</label>
                             <div class="col-md-10">
-                                <input type="date" class="form-control datepicker" id="divulgacao" name="divulgacao" value="{{ old('divulgacao') }}" placeholder="dia/mês/ano" data-provide="datepicker" required>
-
-                                @if ($errors->has('divulgacao'))
-                                    <span class="help-block">
-                                    <strong>{{ $errors->first('divulgacao') }}</strong>
-                                </span>
-                                @endif
+                                <input type="datetime-local" class="form-control datepicker" id="disclosure" name="disclosure" value="{{ old('disclosure') }}" placeholder="dia/mês/ano" data-provide="datepicker">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="anexo" class="control-label col-md-2">Anexo</label>
+                            <label for="file" class="control-label col-md-2">Anexo</label>
                             <div class="col-md-10">
-                                <input type="file" id="anexo" name="anexo" value="{{ old('anexo') }}" required>
-
-                                @if ($errors->has('anexo'))
-                                    <span class="help-block">
-                                    <strong>{{ $errors->first('anexo') }}</strong>
-                                </span>
-                                @endif
+                                <input type="file" id="file" name="file" value="{{ old('file') }}">
                             </div>
                         </div>
 

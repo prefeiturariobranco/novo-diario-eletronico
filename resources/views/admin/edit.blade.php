@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="content">
+        <div class="container-fluid">
+            <x-alert/>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12 col-md-offset-2">
             <div class="card ">
@@ -12,32 +17,37 @@
                     </ul>
                 </div>
                 <div class="card-body col-md-10 align-self-center">
-                    <form action="{{ "/admin/$item->id" }}" method="POST" class="form-horizontal "
+                    <form action="{{route('admin.update', $item->id)}}" method="POST" class="form-horizontal "
                           enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
 
                         <div class="form-group row">
                             <label for="numero" class="col-sm-2 col-form-label">Número</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="numero" name="number"
-                                       value="{{ old('numero') ?: $item->number }}" required
-                                       placeholder="Para edições extras, usar -LETRA. Ex.: 1-A, 1-B etc">
-                                @if ($errors->has('numero'))
-                                    <span
-                                        class="help-block"><strong>{{ $errors->first('numero') }}</strong></span>
-                                @endif
+                                       value="{{ old('numero') ?: $item->number }}"
+                                       placeholder="Para edições extras, usar -LETRA. Ex.: 1-A, 1-B etc" disabled>
+                                <input type="hidden" name="number" value="{{ old('numero') ?: $item->number }}">
                             </div>
                         </div>
+
                         <div class="form-group row">
-                            <label for="divulgacao" class="col-sm-2 col-form-label">Divulgação</label>
+                            <label for="divulgacao" class="col-sm-2 col-form-label">Divulgação Definida anteriormente</label>
                             <div class="col-sm-10">
-                                <input type="date" class="form-control datepicker" id="divulgacao"
-                                       name="divulgacao"
-                                       value="{{ old('divulgacao') ?: $item->disclosure->format('d/m/Y') }}"
-                                       required>
-                                @if ($errors->has('divulgacao'))
+                                <input disabled class="form-control datepicker" value="{{$item->disclosure }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="divulgacao" class="col-sm-2 col-form-label">Nova Divulgação</label>
+                            <div class="col-sm-10">
+                                <input type="datetime-local" class="form-control datepicker" id="divulgacao"
+                                       name="disclosure"
+                                       value="{{ old('disclosure') ?: date('d/m/Y H:m:s', strtotime(($item->disclosure))) }}">
+                                @if ($errors->has('disclosure'))
                                     <span
-                                        class="help-block"><strong>{{ $errors->first('divulgacao') }}</strong></span>
+                                        class="help-block text-danger"><strong>{{ $errors->first('disclosure') }}</strong></span>
                                 @endif
                             </div>
                         </div>
@@ -58,6 +68,7 @@
                         <div class="form-group">
                             <div class="col-md-10 col-md-offset-2">
                                 <button type="submit" class="btn btn-primary">Salvar</button>
+                                <button href="{{route('admin.index')}}" class="btn btn-danger">Voltar</button>
                             </div>
                         </div>
                     </form>
