@@ -22,6 +22,8 @@
 @endpush
 
 @section('content')
+
+    @include('searchbar')
     <div class="row">
         <div class="col-md-12 col-md-offset-2 " style="margin-bottom: 100px">
             <div class="card">
@@ -50,7 +52,7 @@
                         @forelse ($itens as $item)
                             <tr>
                                 <td>{{ $item->number }}</td>
-                                <td>{{ $item->disclosure->format('d/m/Y') }}</td>
+                                <td>{{ $item->disclosure->format('d/m/Y h:m:s') }}</td>
                                 <td>
                                     <a href="{{ "/visualizar/$item->id" }}" target="_blank" style="color: #903031;">
                                         <button class="btn btn-outline-dark">
