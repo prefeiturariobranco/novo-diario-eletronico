@@ -121,7 +121,7 @@ class AdminController extends Controller
                 $text = $pdf->getText();//PEGAR O TEXTO DO PDF
                 $item->parse_pdf = $text;
             }
-            if (!is_null($request->disclosure)) $item->disclosure = str_replace( 'T', '', $request->disclosure);
+            if (!is_null($request->disclosure)) $item->disclosure = date_format(date_create($request->disclosure), 'd/m/Y H:m');
             $item->updated_by = \Auth::id();
             $item->update();
             DB::commit();
