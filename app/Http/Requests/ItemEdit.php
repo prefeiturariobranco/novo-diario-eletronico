@@ -24,8 +24,8 @@ class ItemEdit extends FormRequest
     public function rules()
     {
         return [
-            'disclosure' => 'required',
-            'file' => 'required|mimes:pdf',
+            'disclosure' => 'nullable',
+            'file' => 'nullable|mimes:pdf',
         ];
     }
 

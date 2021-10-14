@@ -34,19 +34,20 @@
 
                         <div class="form-group row">
                             <label for="divulgacao" class="col-sm-2 col-form-label">Divulgação Definida anteriormente</label>
-                            <input disabled value="{{$item->disclosure }}">
+                            <div class="col-sm-10">
+                                <input disabled class="form-control datepicker" value="{{$item->disclosure }}">
+                            </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="divulgacao" class="col-sm-2 col-form-label">Divulgação</label>
+                            <label for="divulgacao" class="col-sm-2 col-form-label">Nova Divulgação</label>
                             <div class="col-sm-10">
-
                                 <input type="datetime-local" class="form-control datepicker" id="divulgacao"
-                                       name="divulgacao"
-                                       value="{{ old('divulgacao') ?: date('d/m/Y H:m:s', strtotime(($item->disclosure))) }}">
-                                @if ($errors->has('divulgacao'))
+                                       name="disclosure"
+                                       value="{{ old('disclosure') ?: date('d/m/Y H:m:s', strtotime(($item->disclosure))) }}">
+                                @if ($errors->has('disclosure'))
                                     <span
-                                        class="help-block"><strong>{{ $errors->first('divulgacao') }}</strong></span>
+                                        class="help-block text-danger"><strong>{{ $errors->first('disclosure') }}</strong></span>
                                 @endif
                             </div>
                         </div>

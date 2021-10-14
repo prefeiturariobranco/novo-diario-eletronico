@@ -107,12 +107,12 @@ class AdminController extends Controller
         try {
             DB::beginTransaction();
             $item = Item::findOrfail($id);
-            $item->file = $request->file->store('anexos');
-            $item->disclosure = $request->disclosure;
+            if (isset($request->anexo)) $item->file = $request->anexo->store('anexos');
+            if (!is_null($request->disclosure)) $item->disclosure = $request->disclosure;
             $item->updated_by = \Auth::id();
             $item->update();
             DB::commit();
-            return redirect('admin.index')->withSuccess('Registro alterado com sucesso');
+            return redirect()->route('admin.index')->withSuccess('Registro alterado com sucesso');
 
         } catch (Exception $e) {
             DB::rollback();
