@@ -70,7 +70,7 @@
                                 @forelse ($itens as $item)
                                     <tr>
                                         <td>{{ $item->number }}</td>
-                                        <td>{{ $item->disclosure}}</td>
+                                        <td>{{ date_format(date_create($item->disclosure), 'd/m/Y H:i') }}</td>
                                         <td>
                                             <a href="{{"visualizar/$item->id"}}" target="_blank"
                                                style="color: #903031;">

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Exception;
 use Smalot\PdfParser\Parser;
+use Spatie\PdfToText\Pdf;
 
 class AdminController extends Controller
 {
@@ -74,16 +75,16 @@ class AdminController extends Controller
         try {
 
             DB::beginTransaction();
-            $parser = new Parser();
             $filepath = $request->file->store('anexos');
             //REALIZAR A LEITURA DO PDF
-            $pdf = $parser->parseFile(public_path().'/storage/'.$filepath);
-            $text = $pdf->getText();//PEGAR O TEXTO DO PDF
+            $text = (new Pdf())
+                ->setPdf(public_path().'/storage/'.$filepath)
+                ->text();
 
             $item = new Item;
             $item->parse_pdf = $text;
             $item->number = $request->number;
-            $item->disclosure = date_format(date_create($request->disclosure), 'd/m/Y H:m');
+            $item->disclosure = $request->disclosure;
             $item->created_by = \Auth::id();
             $item->file = $filepath;
             $item->save();
@@ -92,6 +93,7 @@ class AdminController extends Controller
 
         } catch (Exception $ex) {
             DB::rollBack();
+            dd($ex);
             return redirect()->back()->withInput()->withErrors([
                 'message' => $ex->getMessage()
             ]);
@@ -116,12 +118,12 @@ class AdminController extends Controller
                 $filepath = $request->anexo->store('anexos');
                 $item->file = $filepath;
                 //REALIZAR A LEITURA DO PDF
-                $parser = new Parser();
-                $pdf = $parser->parseFile(public_path().'/storage/'.$filepath);
-                $text = $pdf->getText();//PEGAR O TEXTO DO PDF
+                $text = (new Pdf())
+                    ->setPdf(public_path().'/storage/'.$filepath)
+                    ->text();
                 $item->parse_pdf = $text;
             }
-            if (!is_null($request->disclosure)) $item->disclosure = date_format(date_create($request->disclosure), 'd/m/Y H:m');
+            if (!is_null($request->disclosure)) $item->disclosure = $request->disclosure;
             $item->updated_by = \Auth::id();
             $item->update();
             DB::commit();

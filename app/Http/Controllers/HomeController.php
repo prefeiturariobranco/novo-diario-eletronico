@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Item;;
+use App\Models\Item;
+
+;
+
 use Carbon\Carbon;
 use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -38,12 +42,19 @@ class HomeController extends Controller
         $ano_filtro = $request->has('ano') ? $request->ano : $this->ano_atual;
         $mes_filtro = $request->has('mes') ? $request->mes : $this->mes_atual;
 
-        $itens = Item::where('disclosure', '<=', $now)
-            ->whereMonth('disclosure', '=', $mes_filtro)
-            ->whereYear('disclosure', '=', $ano_filtro)
-            ->orderBy('disclosure', 'desc')
-            ->get();
+        if (count($request->all()) == 0) {
+            $itens = new Collection();
+            $itensModel = Item::all();
+            foreach ($itensModel as $item) {
+                if (strtotime($item->disclosure) < strtotime($now)) $itens->add($item);
 
+            }
+        } else {
+            $itens = Item::whereMonth('disclosure', '=', $mes_filtro)
+                ->whereYear('disclosure', '=', $ano_filtro)
+                ->orderBy('disclosure', 'desc')
+                ->get();
+        }
 
         $anos = DB::table('items')
             ->selectRaw('YEAR(created_at) as year')
@@ -73,7 +84,7 @@ class HomeController extends Controller
 
     public function show(Item $item)
     {
-       $file = $item->file;
+        $file = $item->file;
 
         return view('view', compact('file'));
     }
