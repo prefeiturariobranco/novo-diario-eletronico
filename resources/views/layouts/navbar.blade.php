@@ -18,6 +18,11 @@
                     @endif
                 @endif
             </ul>
+            <ul class="nav justify-content-center w-100">
+                <li class="nav-item">
+                    <h4 class="text-white font-weight-bold">Diário Oficial Eletrônico Municipal</h4>
+                </li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
                 @if (Auth::guest())
