@@ -24,14 +24,19 @@
 @endpush
 
 @section('content')
+    <style>
+        .hover-item:hover {
+            background-color: #1289ea;
+        }
+    </style>
     <div class="row">
         <div class="col-md-12 col-md-offset-2" style="margin-bottom: 100px">
 
             <div class="card">
-                <div class="card-header">
+                <div class="card-header" style=" background: #1289ea;">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active">Listar Editais</a>
+                            <a class="nav-link active bg-dark text-white" >Listar Diários</a>
                         </li>
                     </ul>
                 </div>
@@ -54,9 +59,8 @@
                                     <em>{{ $termo }}</em>
                                 </h3>
                             @endif
-
-                            <table class="table" id="myTable">
-                                <thead style="text-align-last: center">
+                            <table class="table table-striped table-bordered" id="myTable">
+                                <thead style="text-align-last: center"class="thead-dark">
                                 <tr>
                                     <th>Número</th>
                                     <th>Divulgação</th>
@@ -68,9 +72,9 @@
                                 </thead>
                                 <tbody style="text-align-last: center">
                                 @forelse ($itens as $item)
-                                    <tr>
-                                        <td>{{ $item->number }}</td>
-                                        <td>{{ date_format(date_create($item->disclosure), 'd/m/Y H:i') }}</td>
+                                    <tr class="table-light" >
+                                        <td class="hover-item">{{ $item->number }}</td>
+                                        <td class="hover-item">{{ date_format(date_create($item->disclosure), 'd/m/Y H:i') }}</td>
                                         <td>
                                             <a href="{{"visualizar/$item->id"}}" target="_blank"
                                                style="color: #903031;">
@@ -107,7 +111,7 @@
                             </table>
                         </div>
                         <div class="panel-footer">
-                            <a href="{{"/admin/create/"}}" class="btn btn-primary">Adicionar novo</a>
+                            <a href="{{"/admin/create/"}}" class="btn btn-primary">Adicionar Novo</a>
                         </div>
                     </div>
                 </div>
@@ -122,15 +126,15 @@
     <script>
         $('#myTable').dataTable({
             "language": {
-                "sEmptyTable": "Não foi encontrado nenhum registo",
+                "sEmptyTable": "Não foi encontrado nenhum registro",
                 "sLoadingRecords": "A carregar...",
                 "sProcessing": "A processar...",
-                "sLengthMenu": "Mostrar _MENU_ registos",
+                "sLengthMenu": "Mostrar _MENU_ registros",
                 "sZeroRecords": "Não foram encontrados resultados",
-                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registos",
-                "sInfoEmpty": "Mostrando de 0 até 0 de 0 registos",
-                "sInfoFiltered": "(filtrado de _MAX_ registos no total)",
-                "sSearch": "Procurar:",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando de 0 até 0 de 0 registros",
+                "sInfoFiltered": "(filtrado de _MAX_ registros no total)",
+                "sSearch": "Pesquisar em  Documento:",
                 "oPaginate": {
                     "sFirst": "Primeiro",
                     "sPrevious": "Anterior",

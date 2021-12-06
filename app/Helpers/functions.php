@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\DB;
 
 if (!function_exists('meses')){
     function meses(){
-        $meses = [null, 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+        $meses = ['Selecionar todos', 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
         return $meses;
     }
 }

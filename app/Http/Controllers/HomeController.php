@@ -38,18 +38,20 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+
         $now = Carbon::now();
         $ano_filtro = $request->has('ano') ? $request->ano : $this->ano_atual;
         $mes_filtro = $request->has('mes') ? $request->mes : $this->mes_atual;
 
-        if (count($request->all()) == 0) {
+        if ($request->mes == 0 ){
             $itens = new Collection();
             $itensModel = Item::all();
             foreach ($itensModel as $item) {
                 if (strtotime($item->disclosure) < strtotime($now)) $itens->add($item);
 
             }
-        } else {
+        }
+       else {
             $itens = Item::whereMonth('disclosure', '=', $mes_filtro)
                 ->whereYear('disclosure', '=', $ano_filtro)
                 ->orderBy('disclosure', 'desc')

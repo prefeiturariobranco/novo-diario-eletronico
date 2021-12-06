@@ -73,13 +73,13 @@ class AdminController extends Controller
     public function store(AdminRequest $request)
     {
         try {
-
             DB::beginTransaction();
+            $parser = new Parser();
             $filepath = $request->file->store('anexos');
             //REALIZAR A LEITURA DO PDF
-            $text = (new Pdf())
-                ->setPdf(public_path().'/storage/'.$filepath)
-                ->text();
+
+            $pdf = $parser->parseFile(public_path().'/storage/'.$filepath);
+            $text = $pdf->getText();//PEGAR O TEXTO DO PDF
 
             $item = new Item;
             $item->parse_pdf = $text;
@@ -105,7 +105,6 @@ class AdminController extends Controller
     {
         $mes_atual = $this->mes_atual;
         $item = Item::findOrfail($id);
-
         return view('admin.edit', compact('item', 'mes_atual'));
     }
 

@@ -24,18 +24,15 @@
 
                 <div class="card-body col-md-12 mt-3">
                     <div>
-                        <img class="img" src="{{asset('/img/logo.png')}}" alt="">
+                        <img class="img" src="{{asset('/img/logo.png')}}" alt="logo_prefeitura">
                     </div>
                     <form class="mt-5" method="POST" action="{{ route('login') }}">
                         @csrf
-
                         <div class="form-group row">
-
                             <div class="col-md-12">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
                                        name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
                                        placeholder="Usuário">
-
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -80,7 +77,6 @@
         </div>
     </div>
 </div>
-
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
