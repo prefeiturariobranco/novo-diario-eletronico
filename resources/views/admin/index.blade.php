@@ -17,7 +17,7 @@
                             {{ $ano == (isset($ano_filtro)? $ano_filtro:date('Y')) ? 'selected' : '' }} value="{{ $ano }}">{{ $ano }}</option>
                     @endforeach
                 </select>
-                <button type="submit" class="btn btn-xs btn-primary ml-2">Filtrar</button>
+                <button type="submit" class="btn btn-xs btn-outline-primary ml-2">Filtrar</button>
             </form>
         </div>
     @endif
