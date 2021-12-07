@@ -36,7 +36,7 @@
                 <div class="card-header" style=" background: #1289ea;">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active bg-dark text-white" >Listar Diários</a>
+                            <a class="nav-link active bg-dark text-white">Listar Diários</a>
                         </li>
                     </ul>
                 </div>
@@ -60,7 +60,7 @@
                                 </h3>
                             @endif
                             <table class="table table-striped table-bordered" id="myTable">
-                                <thead style="text-align-last: center"class="thead-dark">
+                                <thead style="text-align-last: center" class="thead-dark">
                                 <tr>
                                     <th>Número</th>
                                     <th>Divulgação</th>
@@ -72,7 +72,7 @@
                                 </thead>
                                 <tbody style="text-align-last: center">
                                 @forelse ($itens as $item)
-                                    <tr class="table-light" >
+                                    <tr class="table-light">
                                         <td class="hover-item">{{ $item->number }}</td>
                                         <td class="hover-item">{{ date_format(date_create($item->disclosure), 'd/m/Y H:i') }}</td>
                                         <td>
